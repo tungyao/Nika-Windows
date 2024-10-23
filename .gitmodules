@@ -1,0 +1,3 @@
+[submodule "fud-eac-driver"]
+	path = fud-eac-driver
+	url = https://github.com/MmCopyMemory/fud-eac-driver.git
