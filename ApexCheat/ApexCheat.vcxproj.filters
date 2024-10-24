@@ -80,9 +80,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\fud-eac-driver\comms.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Resolver.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="drvrecode_eac.hpp">
       <Filter>头文件\mapper</Filter>
+    </ClInclude>
+    <ClInclude Include="obfusheader.hpp">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

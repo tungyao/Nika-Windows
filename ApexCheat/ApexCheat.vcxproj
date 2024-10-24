@@ -232,7 +232,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -314,7 +314,6 @@
     <ClCompile Include="PID.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\fud-eac-driver\comms.h" />
     <ClInclude Include="AimBot.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="drvrecode_eac.hpp" />
@@ -331,6 +330,7 @@
     <ClInclude Include="mapper\service.hpp" />
     <ClInclude Include="mapper\skCrypter.h" />
     <ClInclude Include="mapper\utils.hpp" />
+    <ClInclude Include="obfusheader.hpp" />
     <ClInclude Include="Overlay\Font.hpp" />
     <ClInclude Include="Overlay\FontAwesome.h" />
     <ClInclude Include="Overlay\Overlay.hpp" />

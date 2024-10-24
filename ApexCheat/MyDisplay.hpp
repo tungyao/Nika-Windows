@@ -10,24 +10,13 @@ public:
 	}
 
 	void mouseClickLeft(int delay_ms) {
-		// 创建一个INPUT结构体数组，用来存储输入事件
 		INPUT input[2] = {};
-
-		// 设置第一个输入事件为鼠标左键按下
 		input[0].type = INPUT_MOUSE;
 		input[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-
-		// 发送鼠标左键按下的输入事件
 		SendInput(1, &input[0], sizeof(INPUT));
-
-		// 添加延迟
 		Sleep(delay_ms);
-
-		// 设置第二个输入事件为鼠标左键释放
 		input[1].type = INPUT_MOUSE;
 		input[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-
-		// 发送鼠标左键释放的输入事件
 		SendInput(1, &input[1], sizeof(INPUT));
 	}
 
@@ -77,16 +66,12 @@ public:
 		}
 		return false;
 	}
-
-	// 模拟鼠标左键按下
 	void mouse_left_down() {
 		INPUT input = {};
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
 		SendInput(1, &input, sizeof(INPUT));
 	}
-
-	// 模拟鼠标左键释放
 	void mouse_left_up() {
 		INPUT input = {};
 		input.type = INPUT_MOUSE;
