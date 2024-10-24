@@ -25,6 +25,5 @@ thanks these projects
 
 @github [BoheSama1999/ZapClient-Windows)](https://github.com/BoheSama1999/ZapClient-Windows)
 
-@github [MmCopyMemory/fud-eac-driver](https://github.com/MmCopyMemory/fud-eac-driver)
 
 I fixed something about overlay can not work correctly, and add some feature like `overlay menu`, `inject driver at start`, `remove load cfg` module.
