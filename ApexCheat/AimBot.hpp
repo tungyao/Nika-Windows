@@ -318,7 +318,7 @@ struct AimBot {
 					if (timeNow > keymap::timeLastShot + std::chrono::milliseconds(125)) {
 						//myDisplay->mouseClickLeft();
 						myDisplay->mouse_left_down();
-						util::sleep(6);
+						util::sleep(12);
 						myDisplay->mouse_left_up();
 						keymap::AIMBOT_FIRING_KEY = false;
 						keymap::timeLastShot = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());

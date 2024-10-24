@@ -21,16 +21,16 @@
 #include "Overlay/Overlay.hpp"
 using namespace std;
 // Data
-static ID3D11Device *g_pd3dDevice = NULL;
-static ID3D11DeviceContext *g_pd3dDeviceContext = NULL;
-static IDXGISwapChain *g_pSwapChain = NULL;
-static ID3D11RenderTargetView *g_mainRenderTargetView = NULL;
+static ID3D11Device* g_pd3dDevice = NULL;
+static ID3D11DeviceContext* g_pd3dDeviceContext = NULL;
+static IDXGISwapChain* g_pSwapChain = NULL;
+static ID3D11RenderTargetView* g_mainRenderTargetView = NULL;
 
 // fonts
-ImFont *mainfont;
-ImFont *smallfont;
-ImFont *iconfont;
-ImFont *logofont;
+ImFont* mainfont;
+ImFont* smallfont;
+ImFont* iconfont;
+ImFont* logofont;
 
 enum tabs
 {
@@ -51,17 +51,9 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-IDirect3DTexture9 *user = nullptr;
+IDirect3DTexture9* user = nullptr;
 static bool particles = true;
 DWORD picker_flags = ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs;
-
-
-
-
-
-
-
-
 MyDisplay* myDisplay = new MyDisplay();
 Overlay overlayWindow = Overlay();
 
@@ -95,7 +87,8 @@ double averageFps;
 int cache = 0;
 int totalSpectators = 0;
 std::vector<std::string> spectators;
-void renderUI2();
+void renderMenu();
+
 void renderUI() {
 	auto io = ImGui::GetIO();
 	ImGui::SetNextWindowSize(io.DisplaySize);
@@ -120,12 +113,13 @@ void renderUI() {
 		if (FEATURE_SPECTATORS_ON) sense->renderSpectators(totalSpectators, spectators);
 	}
 	ImGui::End();
-	if(keymap::SHOW_MENU)
+	if (keymap::SHOW_MENU)
 	{
-		renderUI2();
+		renderMenu();
 	}
 }
-void renderUI2() {
+
+void renderMenu() {
 	ImGui::Begin("Menu");
 	ImGui::SetNextWindowSize(ImVec2(300, 800));
 	ImGui::Checkbox("Aimbot on", &FEATURE_AIMBOT_ON);
@@ -175,10 +169,10 @@ void renderUI2() {
 using namespace skc;
 
 DWORD WINAPI StartCheat(LPVOID lpParamter) {
-	
+
 	Inject();
 	is_inject = mem::find_driver();
-	while (is_inject ==false)
+	while (is_inject == false)
 	{
 		printf("NOT OPEN DRIVER!\n");
 		std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -189,38 +183,28 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 	while (mem::find_process(TEXT("r5apex.exe")) == 0) {
 #endif
 
-			printf("OPEN APEX LEGENDS!\n");
-			
-			std::this_thread::sleep_for(std::chrono::seconds(5));
-		
+		printf("OPEN APEX LEGENDS!\n");
+
+		std::this_thread::sleep_for(std::chrono::seconds(5));
+
 	}
-	
+
 	while (!mem::CR3())
 	{
 		printf("NOT CR3\n");
 		std::this_thread::sleep_for(std::chrono::seconds(5));
-	
+
 	}
 	OFF_REGION = mem::find_image();
 	std::cout << std::hex << "REGION: " << OFF_REGION << "\n";
 	timeBeginPeriod(1);
 
-
-
-
-
-
-
-
-
-
-	// fill in slots for players, dummies and items
 	for (int i = 0; i < 70; i++) humanPlayers->push_back(new Player(i));
 	for (int i = 0; i < 15000; i++) dummyPlayers->push_back(new Player(i));
-	
-	auto a = xorstr_("chrome");
+
+	auto overlayName = xorstr_("chrome");
 	if (SENSE_VERBOSE == 2) {
-		if (!overlayWindow.InitializeOverlay(a)) {
+		if (!overlayWindow.InitializeOverlay(overlayName)) {
 			overlayWindow.DestroyOverlay();
 			return false;
 		}
@@ -236,16 +220,8 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 	else {
 		gameCamera->initialize(2560, 1440);
 	}
-	
-
-
-
-
-
-
 
 	int counter = 0;
-
 
 	while (true) {
 		try {
@@ -254,11 +230,11 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 				myDisplay->kbRelease(AIMBOT_FIRING_KEY);
 				keymap::AIMBOT_FIRING_KEY = false;
 				playersCache->clear();
-		
+
 			}
 
 			while (true) {
-			
+
 				if (readError > 0) {
 					if (SENSE_VERBOSE == 2) overlayWindow.Render(&renderUI);
 					util::sleep(50);
@@ -283,16 +259,20 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 				continue;
 			}
 
-			if (AIMBOT_ACTIVATED_BY_KEY && (AIMBOT_ACTIVATION_KEY != 0 || "NONE") && myDisplay->isKeyDown(AIMBOT_ACTIVATION_KEY) ||
-				AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown())
+			if ((AIMBOT_ACTIVATED_BY_KEY && (AIMBOT_ACTIVATION_KEY != 0 || "NONE") && myDisplay->isKeyDown(AIMBOT_ACTIVATION_KEY)) ||
+				(AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown()) ||
+				(FEATURE_TRIGGERBOT_ON)) {
 				keymap::AIMBOT_ACTIVATION_KEY = true;
-			else
+			}
+			else {
 				keymap::AIMBOT_ACTIVATION_KEY = false;
+			}
 			if (myDisplay->isKeyDown(SHOW_MENU_KEY)) {
-				 keymap::SHOW_MENU = !keymap::SHOW_MENU;
-				 if(SENSE_VERBOSE ==2) overlayWindow.CaptureInput(keymap::SHOW_MENU);
-				 util::sleep(100);
-			 }
+				keymap::SHOW_MENU = !keymap::SHOW_MENU;
+				if (SENSE_VERBOSE == 2) overlayWindow.CaptureInput(keymap::SHOW_MENU);
+				util::sleep(100);
+			}
+
 			int weapon = localPlayer->weaponId;
 			if (AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown() && (
 				weapon == WEAPON_SENTINEL ||
@@ -312,46 +292,46 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 			players->clear();
 			if (counter % 99 == 0) {
 				playersCache->clear();
-			
+
 				for (int i = 0; i < dummyPlayers->size(); i++) {
 					Player* p = dummyPlayers->at(i);
-					p->readFromMemory( theMap, localPlayer, counter);
+					p->readFromMemory(theMap, localPlayer, counter);
 					if (p->isValid()) { playersCache->push_back(p); players->push_back(p); }
 				}
-		
-			
-					cache = playersCache->size();
-					printf("Entities: %d\n", cache);
 
-					if (FEATURE_SPECTATORS_ON && SENSE_VERBOSE == 2) {
-						int tempTotalSpectators = 0;
-						std::vector<std::string> tempSpectators;
-						for (int i = 0; i < players->size(); i++) {
-							Player* p = players->at(i);
-							if (p->base == localPlayer->base)
-								continue;
-							if (p->spctrBase == localPlayer->base) {
-								tempTotalSpectators++;
-								tempSpectators.push_back(p->getPlayerName());
-							}
-							else if (FEATURE_SPECTATORS_SHOW_DEAD && p->isDead) {
-								tempTotalSpectators++;
-								tempSpectators.push_back("DEAD: " + p->getPlayerName());
-							}
+
+				cache = playersCache->size();
+				printf("Entities: %d\n", cache);
+
+				if (FEATURE_SPECTATORS_ON && SENSE_VERBOSE == 2) {
+					int tempTotalSpectators = 0;
+					std::vector<std::string> tempSpectators;
+					for (int i = 0; i < players->size(); i++) {
+						Player* p = players->at(i);
+						if (p->base == localPlayer->base)
+							continue;
+						if (p->spctrBase == localPlayer->base) {
+							tempTotalSpectators++;
+							tempSpectators.push_back(p->getPlayerName());
 						}
-						totalSpectators = tempTotalSpectators;
-						spectators = tempSpectators;
-						printf("Spectators: %d\n", static_cast<int>(spectators.size()));
-						if (static_cast<int>(spectators.size()) > 0)
-							for (int i = 0; i < static_cast<int>(spectators.size()); i++)
-								printf("> %s\n", spectators.at(i).c_str());
+						else if (FEATURE_SPECTATORS_SHOW_DEAD && p->isDead) {
+							tempTotalSpectators++;
+							tempSpectators.push_back("DEAD: " + p->getPlayerName());
+						}
 					}
-				
+					totalSpectators = tempTotalSpectators;
+					spectators = tempSpectators;
+					printf("Spectators: %d\n", static_cast<int>(spectators.size()));
+					if (static_cast<int>(spectators.size()) > 0)
+						for (int i = 0; i < static_cast<int>(spectators.size()); i++)
+							printf("> %s\n", spectators.at(i).c_str());
+				}
+
 			}
 			else {
 				for (int i = 0; i < playersCache->size(); i++) {
 					Player* p = playersCache->at(i);
-					p->readFromMemory( theMap, localPlayer, counter);
+					p->readFromMemory(theMap, localPlayer, counter);
 					if (p->isValid()) players->push_back(p);
 				}
 			}
@@ -359,7 +339,7 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 			// Run features
 			gameCamera->update();
 			aimBot->update(leftLock, rightLock, autoFire, boneId, totalSpectators);
-		
+
 
 			if (SENSE_VERBOSE == 2) overlayWindow.Render(&renderUI);
 			if (SENSE_VERBOSE == 3) sense->update(counter);
@@ -412,17 +392,8 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 
 int wmain()
 {
-	
-	
+
 	StartCheat(0);
-	//HANDLE  a = CreateThread(nullptr, 0, StartCheat, nullptr, 0, nullptr);
-	
-	//HANDLE  c = CreateThread(nullptr, 0, StartPID, (LPVOID)mem::process_id, 0, nullptr);
-
-
-	//WaitForSingleObject(a, INFINITE);
-
-	//WaitForSingleObject(c, INFINITE);
 }
 
 // Helper functions
@@ -482,7 +453,7 @@ void CleanupDeviceD3D()
 
 void CreateRenderTarget()
 {
-	ID3D11Texture2D *pBackBuffer;
+	ID3D11Texture2D* pBackBuffer;
 	g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
 	g_pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &g_mainRenderTargetView);
 	pBackBuffer->Release();

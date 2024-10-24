@@ -317,6 +317,7 @@
     <ClInclude Include="..\fud-eac-driver\comms.h" />
     <ClInclude Include="AimBot.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="drvrecode_eac.hpp" />
     <ClInclude Include="imgui\color.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
     <ClInclude Include="imgui\imgui_impl_opengl3.h" />

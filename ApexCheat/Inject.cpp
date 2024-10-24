@@ -6,7 +6,7 @@
 #include <filesystem>
 
 #include "./mapper/kdmapper.hpp"
-#include "../DriverLoader/drvrecode_eac.hpp"
+#include "drvrecode_eac.hpp"
 #include "mapper/utils.hpp"
 #include "vals.hpp"
 

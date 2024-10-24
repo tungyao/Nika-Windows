@@ -206,6 +206,9 @@
     <ClInclude Include="Overlay\Overlay.hpp">
       <Filter>头文件\Overlay</Filter>
     </ClInclude>
+    <ClInclude Include="drvrecode_eac.hpp">
+      <Filter>头文件\mapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Directory.build.props" />
