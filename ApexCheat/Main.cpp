@@ -240,20 +240,17 @@ DWORD WINAPI StartCheat(LPVOID lpParamter) {
 				continue;
 			}
 
-			if ((AIMBOT_ACTIVATED_BY_KEY && (AIMBOT_ACTIVATION_KEY != 0 || "NONE") && myDisplay->isKeyDown(AIMBOT_ACTIVATION_KEY)) ||
-				(AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown()) ||
-				(FEATURE_TRIGGERBOT_ON)) {
+			if (AIMBOT_ACTIVATED_BY_KEY && (AIMBOT_ACTIVATION_KEY != 0 || "NONE") && myDisplay->isKeyDown(AIMBOT_ACTIVATION_KEY) ||
+				AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown())
 				keymap::AIMBOT_ACTIVATION_KEY = true;
-			}
-			else {
+			else
 				keymap::AIMBOT_ACTIVATION_KEY = false;
-			}
 			if (myDisplay->isKeyDown(SHOW_MENU_KEY)) {
 				keymap::SHOW_MENU = !keymap::SHOW_MENU;
 				if (SENSE_VERBOSE == 2) overlayWindow.CaptureInput(keymap::SHOW_MENU);
 				util::sleep(100);
 			}
-
+			
 			int weapon = localPlayer->weaponId;
 			if (AIMBOT_ACTIVATED_BY_MOUSE && myDisplay->isLeftMouseButtonDown() && (
 				weapon == WEAPON_SENTINEL ||
