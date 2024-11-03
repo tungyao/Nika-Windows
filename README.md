@@ -1,4 +1,5 @@
 # cheat framework
+# bad news EAC added cr3 shuffle, this repo maybe do not work. wait for cracking.
 
 * glow
 * esp
