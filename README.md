@@ -1,6 +1,6 @@
 # cheat framework
-# bad news EAC added cr3 shuffle, this repo maybe do not work. wait for cracking.
 
+you can fix cr3 shuffle, the cheat will help you rank to master
 * glow
 * esp
 * smooth aimbot without driver
